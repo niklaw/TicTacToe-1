@@ -11,7 +11,7 @@
 @interface ViewController : UIViewController
 
 
--(IBAction)onLabelTapped:(UITapGestureRecognizer *)tapGestureRecognizer;
+//-(IBAction)onLabelTapped:(UITapGestureRecognizer *)tapGestureRecognizer;
 
 
 @end

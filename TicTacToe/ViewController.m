@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <UIAlertViewDelegate, UIGestureRecognizerDelegate>
 {
     
     __weak IBOutlet UILabel *whichPlayerLabel;
@@ -21,6 +21,10 @@
     __weak IBOutlet UILabel *myLabelThree;
     __weak IBOutlet UILabel *myLabelTwo;
     __weak IBOutlet UILabel *myLabelOne;
+    __weak IBOutlet UILabel *markerLabel;
+    CGAffineTransform transform;
+  
+    
 }
 
 @end
@@ -31,41 +35,50 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    transform = markerLabel.transform;
+    
+    
+    
 }
 
 
--(IBAction)onLabelTapped:(UITapGestureRecognizer *)tapGestureRecognizer
-
+-(IBAction)onDrag:(UIPanGestureRecognizer *)panGestureRecognizer
 {
-   if (tapGestureRecognizer.state == UIGestureRecognizerStateEnded)
-   {
-       NSString *symbol = @"X";
-       UIColor *color = [UIColor blueColor];
-       if ([whichPlayerLabel.text isEqualToString: @"Player 1"]) {
-           symbol = @"X";
-           color = [UIColor blueColor];
-       }
-       else {
-           symbol = @"O";
-           color = [UIColor redColor];
-       }
+    if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        UILabel *label = [self findLabelUsingPoint:[panGestureRecognizer locationInView:self.view]];
+        if (label != nil)
+        {
+            label.text = markerLabel.text;
+            label.textColor = markerLabel.textColor;
+            NSString *winner = [self whoOne];
+            if ([winner isEqualToString:@"X"] == YES || [winner isEqualToString:@"O"] == YES) {
+                if ([winner isEqualToString:@"X"] == YES) {
+                    winner = @"Player 1 is the winner!";
+                }
+                if ([winner isEqualToString:@"O"] == YES) {
+                    winner = @"Player 2 is the winner!";
+                }
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Winner!" message:winner delegate:self cancelButtonTitle:@"New Game" otherButtonTitles: nil];
+                [alert show];
+                [self alertView:alert clickedButtonAtIndex:1];
+                
+            }
+            [self switchPlayer];
 
-       CGPoint point = [tapGestureRecognizer locationInView:self.view];
-       UILabel *label = [self findLabelUsingPoint:point];
-       if (label != nil)
-       {
-           label.text = symbol;
-           label.textColor = color;
-           NSString *winner = [NSString stringWithFormat:@"Congratulations! %@ is the winner!", [self whoWon]];
-           if (winner != nil) {
-               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Winner" message:@"Congratulations! %@ is the winner!" delegate:nil cancelButtonTitle:@"In your Face!" otherButtonTitles:@"New Game", nil];
-               [alert show];
-           }
-           [self switchPlayer];
-       }
-   }
+        
+        [UIView animateWithDuration:0.5f animations:^{markerLabel.transform = transform;
+        }];
+    }
+    }else {
+        
+        CGPoint point = [panGestureRecognizer translationInView:self.view];
+        markerLabel.transform = CGAffineTransformMakeTranslation(point.x, point.y);
+        point.x += markerLabel.center.x;
+        point.y += markerLabel.center.y;
+        
+        }
 }
+
 
 -(UILabel *)findLabelUsingPoint:(CGPoint)point
 {
@@ -119,11 +132,11 @@
     return nil;
 }
 
--(NSString *)whoWon
+-(NSString *)whoOne
 {
-    NSString *whoWon = [self checkLabelsForWinner];
-    if (whoWon != nil) {
-        return whoWon;
+    NSString *whoOne = [self checkLabelsForWinner];
+    if (whoOne != nil) {
+        return whoOne;
     }
     return nil;
 }
@@ -172,11 +185,44 @@
 {
     if ([whichPlayerLabel.text isEqualToString:@"Player 1"] == YES) {
         whichPlayerLabel.text = @"Player 2";
+        markerLabel.text = @"O";
+        markerLabel.textColor = [UIColor blueColor];
     }
     else{
         whichPlayerLabel.text = @"Player 1";
+        markerLabel.text = @"X";
+        markerLabel.textColor = [UIColor redColor];
     }
 }
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        myLabelOne.text = @"Ω";
+        myLabelOne.textColor = [UIColor blackColor];
+        myLabelTwo.text = @"Ω";
+        myLabelTwo.textColor = [UIColor blackColor];
+        myLabelThree.text = @"Ω";
+        myLabelThree.textColor = [UIColor blackColor];
+        myLabelFour.text = @"Ω";
+        myLabelFour.textColor = [UIColor blackColor];
+        myLabelFive.text = @"Ω";
+        myLabelFive.textColor = [UIColor blackColor];
+        myLabelSix.text = @"Ω";
+        myLabelSix.textColor = [UIColor blackColor];
+        myLabelSeven.text = @"Ω";
+        myLabelSeven.textColor = [UIColor blackColor];
+        myLabelEight.text = @"Ω";
+        myLabelEight.textColor = [UIColor blackColor];
+        myLabelNine.text = @"Ω";
+        myLabelNine.textColor = [UIColor blackColor];
+    }
+    
+}
+
+
+
 
 
 
