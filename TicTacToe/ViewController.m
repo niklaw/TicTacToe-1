@@ -23,9 +23,13 @@
     __weak IBOutlet UILabel *myLabelOne;
     __weak IBOutlet UILabel *markerLabel;
     CGAffineTransform transform;
+    __weak IBOutlet UILabel *timerLabel;
+    NSInteger counter;
+    NSTimer *timer;
   
     
 }
+
 
 @end
 
@@ -36,14 +40,44 @@
 {
     [super viewDidLoad];
     transform = markerLabel.transform;
+    [self startCountdown];
+}
+
+- (void)startCountdown
+{
+    counter = 10;
     
-    
+    timer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                      target:self
+                                                    selector:@selector(countdownTimer:)
+                                                    userInfo:nil
+                                                     repeats:YES];
     
 }
 
+- (void)countdownTimer:(NSTimer *)timer
+{
+    counter--;
+    timerLabel.text = [NSString stringWithFormat:@"%i", counter];
+    
+    if (counter <= 0) {
+        //[timer invalidate];
+        //  Here the counter is 0 and you can take call another method to take action
+        [self handleCountdownFinished];
+    }
+}
+
+-(void) handleCountdownFinished
+{
+    [self switchPlayer];
+    NSLog(@"Timer Finished!");
+}
 
 -(IBAction)onDrag:(UIPanGestureRecognizer *)panGestureRecognizer
 {
+    if (CGRectContainsPoint(markerLabel.frame, [panGestureRecognizer locationInView:self.view])) {
+        
+    
     if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         UILabel *label = [self findLabelUsingPoint:[panGestureRecognizer locationInView:self.view]];
         if (label != nil)
@@ -69,7 +103,8 @@
         [UIView animateWithDuration:0.5f animations:^{markerLabel.transform = transform;
         }];
     }
-    }else {
+    }
+    else {
         
         CGPoint point = [panGestureRecognizer translationInView:self.view];
         markerLabel.transform = CGAffineTransformMakeTranslation(point.x, point.y);
@@ -77,7 +112,11 @@
         point.y += markerLabel.center.y;
         
         }
+    }
+    
 }
+
+
 
 
 -(UILabel *)findLabelUsingPoint:(CGPoint)point
@@ -193,6 +232,8 @@
         markerLabel.text = @"X";
         markerLabel.textColor = [UIColor redColor];
     }
+    counter = 10;
+    timerLabel.text = [NSString stringWithFormat:@"%i", counter];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
