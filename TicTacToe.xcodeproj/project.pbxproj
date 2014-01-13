@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27E022CD1883601200E6DE17 /* webViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E022CC1883601200E6DE17 /* webViewController.m */; };
 		27E6EB5B1880862700FCB3AF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6EB5A1880862700FCB3AF /* Foundation.framework */; };
 		27E6EB5D1880862700FCB3AF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6EB5C1880862700FCB3AF /* CoreGraphics.framework */; };
 		27E6EB5F1880862700FCB3AF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6EB5E1880862700FCB3AF /* UIKit.framework */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		27E022CB1883601200E6DE17 /* webViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = webViewController.h; sourceTree = "<group>"; };
+		27E022CC1883601200E6DE17 /* webViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = webViewController.m; sourceTree = "<group>"; };
 		27E6EB571880862700FCB3AF /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27E6EB5A1880862700FCB3AF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		27E6EB5C1880862700FCB3AF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -117,6 +120,8 @@
 				27E6EB6C1880862700FCB3AF /* Main.storyboard */,
 				27E6EB6F1880862700FCB3AF /* ViewController.h */,
 				27E6EB701880862700FCB3AF /* ViewController.m */,
+				27E022CB1883601200E6DE17 /* webViewController.h */,
+				27E022CC1883601200E6DE17 /* webViewController.m */,
 				27E6EB721880862700FCB3AF /* Images.xcassets */,
 				27E6EB611880862700FCB3AF /* Supporting Files */,
 			);
@@ -252,6 +257,7 @@
 				27E6EB711880862700FCB3AF /* ViewController.m in Sources */,
 				27E6EB6B1880862700FCB3AF /* AppDelegate.m in Sources */,
 				27E6EB671880862700FCB3AF /* main.m in Sources */,
+				27E022CD1883601200E6DE17 /* webViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

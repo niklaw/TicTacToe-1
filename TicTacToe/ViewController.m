@@ -45,7 +45,7 @@
 
 - (void)startCountdown
 {
-    counter = 10;
+    counter = 20;
     
     timer = [NSTimer scheduledTimerWithTimeInterval:1
                                                       target:self
@@ -232,7 +232,7 @@
         markerLabel.text = @"X";
         markerLabel.textColor = [UIColor redColor];
     }
-    counter = 10;
+    counter = 20;
     timerLabel.text = [NSString stringWithFormat:@"%i", counter];
 }
 
